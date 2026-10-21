@@ -1,9 +1,10 @@
-<h1 align="center"> Projeto de dados Alura </h1>
+<h1 align="center"> Indicadores de Movimentação — Fundição </h1>
 
 <p align="center">
-  
+
 ![Banner](banner.png)
-[Acesse o Dashboard aqui](https://dashboardalura-z6h4r9jfqiifguhudn8zzf.streamlit.app/)
+
+**[🔗 Acesse o Dashboard aqui](https://wk5pcmezysjxfwukin85id.streamlit.app/)**
 
 </p>
 
@@ -11,37 +12,111 @@
 
 ## 📋 Introdução ao Projeto
 
-**Dashboard de análise de salários na area de dados** é uma solução desenvolvida utilizando uma base de dados do excel e desenvolvendo uma interface no Streamlit.
+**Dashboard de análise de volumes de consumos e gerações da fábrica**: uma solução que lê uma planilha Excel de controle (`Informações SAP.xlsm`) e apresenta os indicadores em uma interface interativa, desenvolvida em Streamlit.
 
-Através de uma **interface intuitiva e interativa**, o projeto facilita a consulta de informações de salários na área de dados como:
+Através de uma **interface intuitiva**, o usuário seleciona o arquivo, escolhe a aba e o período, e obtém:
 
-- Engenheiro de dados
-- Ciêntista de dados
-- AWS
--E etc...
+- Total produtivo, total não classificado ("Não Encontrado") e % sem classificação
+- Depósitos e tipos de movimento (TMV) presentes no período
+- Volume por processo
+- Base de dados filtrada pelo período
+- Análises exclusivas da aba **Sólidos** (Lingote AL e Outros Sólidos SF)
 
-Esses dados são **atualizados** em planilhas de controle,
+O objetivo principal do projeto foi **aprender a desenvolver dashboards usando Python**, aplicando os conceitos em um caso real de análise de dados industriais.
 
-O objetivo principal foi *Aprender a desenvolver Dashboard usando Python* 
 ---
 
 ## 🎯 Principais Benefícios
 
-✅ Importação de Big data (Muitos dados) sem travar nada para consultar 
-✅ Extração rápida e segura de informações  
-✅ Atualização automática e dinâmica no dashboard
-✅ Interface gráfica amigável para o usuário final  
-✅ Solução robusta, flexível e fácil de operar
+✅ Não exige instalação: roda direto no navegador  
+✅ Os dados **não saem do computador** do usuário (processamento local, sem envio a servidor)  
+✅ Atualização simples: basta selecionar a versão mais recente da planilha  
+✅ Filtros por ano, trimestre ou período personalizado  
+✅ Interface gráfica amigável para o usuário final
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- ✅ **Python** (Automação, Interface Gráfica)
-- ✅ **Pandas** (Manipulação de dados em Excel)
-- ✅ **plotly** (Plotar Gráficos
-- ✅ **Streamlit*** (Interface)
+- ✅ **Python**: lógica de tratamento e análise
+- ✅ **Pandas**: manipulação dos dados do Excel
+- ✅ **openpyxl**: leitura de arquivos `.xlsm` / `.xlsx`
+- ✅ **Streamlit**: interface do dashboard
+- ✅ **stlite**: executa o Streamlit inteiro no navegador (WebAssembly), permitindo hospedar no GitHub Pages
 
 ---
 
+## 🚀 Como usar
 
+1. Acesse o link do dashboard.
+2. Na barra lateral, em **📁 Arquivo**, selecione o `Informações SAP.xlsm`.
+3. Aguarde o carregamento das bases.
+4. Escolha a **aba** e o **tipo de período** (ano completo, trimestre ou personalizado).
+5. Clique em **▶️ Analisar**.
+
+> ⏳ A primeira abertura pode levar cerca de 1 minuto, pois o navegador baixa o Python e as bibliotecas. Nas próximas vezes fica em cache.
+
+---
+
+## 📑 Estrutura esperada da planilha
+
+**Abas processadas:** AnteLiga, Metal SF, Escoria, Consumo Sucata, Metal Fusao, Solidos, Geracao Sucata Fundicao.
+
+**Colunas obrigatórias em cada aba:** `DATA ORIGINAL`, `QUANTIDADE`, `PROCESSO`  
+**Colunas opcionais:** `DEP.`, `TMV`
+
+Abas que não existirem ou não tiverem as colunas obrigatórias são ignoradas, com um aviso na tela.
+
+> A coluna `QUANTIDADE` é convertida automaticamente (sinal invertido e dividida por 1000, ou seja, kg → t).
+
+---
+
+## 📂 Estrutura do repositório
+
+```
+├── index.html   # Carrega o stlite e inicia o app no navegador
+├── app.py       # Código do dashboard (Streamlit)
+├── banner.png   # Imagem do README
+└── README.md
+```
+
+---
+
+## 💻 Como rodar localmente
+
+**Opção 1: igual ao GitHub Pages (stlite)**
+
+```bash
+python -m http.server 8000
+```
+
+Acesse `http://localhost:8000`. (Abrir o `index.html` com duplo clique não funciona, pois o navegador bloqueia o carregamento do `app.py`.)
+
+**Opção 2: Streamlit tradicional**
+
+```bash
+pip install streamlit pandas openpyxl
+streamlit run app.py
+```
+
+---
+
+## 🌐 Publicação no GitHub Pages
+
+1. Suba `index.html` e `app.py` na raiz do repositório.
+2. Em **Settings → Pages**, selecione a branch `main` e a pasta `/ (root)`.
+3. O link ficará disponível em `https://SEU-USUARIO.github.io/NOME-DO-REPO/`.
+
+---
+
+## 🔒 Observações de segurança
+
+- **Nunca suba a planilha Excel para o repositório**: ela contém dados internos da empresa.
+- Se o repositório for público, o código (nomes de abas, colunas e regras de negócio) também será público. Alinhe com a TI/segurança da empresa antes de divulgar.
+
+---
+
+## ⚠️ Limitações conhecidas
+
+- Arquivos Excel muito grandes podem demorar mais para carregar, pois o processamento ocorre no navegador.
+- A planilha precisa ser selecionada a cada nova sessão.
