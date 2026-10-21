@@ -79,43 +79,6 @@ Abas que não existirem ou não tiverem as colunas obrigatórias são ignoradas,
 ├── banner.png   # Imagem do README
 └── README.md
 ```
-
----
-
-## 💻 Como rodar localmente
-
-**Opção 1: igual ao GitHub Pages (stlite)**
-
-```bash
-python -m http.server 8000
-```
-
-Acesse `http://localhost:8000`. (Abrir o `index.html` com duplo clique não funciona, pois o navegador bloqueia o carregamento do `app.py`.)
-
-**Opção 2: Streamlit tradicional**
-
-```bash
-pip install streamlit pandas openpyxl
-streamlit run app.py
-```
-
----
-
-## 🌐 Publicação no GitHub Pages
-
-1. Suba `index.html` e `app.py` na raiz do repositório.
-2. Em **Settings → Pages**, selecione a branch `main` e a pasta `/ (root)`.
-3. O link ficará disponível em `https://SEU-USUARIO.github.io/NOME-DO-REPO/`.
-
----
-
-## 🔒 Observações de segurança
-
-- **Nunca suba a planilha Excel para o repositório**: ela contém dados internos da empresa.
-- Se o repositório for público, o código (nomes de abas, colunas e regras de negócio) também será público. Alinhe com a TI/segurança da empresa antes de divulgar.
-
----
-
 ## ⚠️ Limitações conhecidas
 
 - Arquivos Excel muito grandes podem demorar mais para carregar, pois o processamento ocorre no navegador.
